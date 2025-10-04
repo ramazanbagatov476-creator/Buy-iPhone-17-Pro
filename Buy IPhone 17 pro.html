@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Buy iPhone 17 Pro | Apple</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      background-color: #fff;
+      color: #111;
+      text-align: center;
+      overflow-x: hidden;
+      transition: background-color 0.5s ease;
+    }
+    header { padding: 60px 20px 20px; }
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #000, #555);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      transition: 0.5s ease;
+    }
+    p.subtitle { font-size: 1.3rem; color: #666; }
+    .iphone-container {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 500px;
+      transition: all 0.5s ease;
+    }
+    .iphone-img {
+      width: 350px;
+      max-width: 80%;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      filter: drop-shadow(0 0 25px rgba(0,0,0,0.2));
+    }
+    .selectors { margin-top: 40px; }
+    select {
+      appearance: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #f9f9f9;
+      transition: 0.3s;
+    }
+    select:hover { background-color: #eee; }
+    .colors {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 15px;
+    }
+    .color-dot {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .color-dot:hover { transform: scale(1.2); }
+    .color-dot.active {
+      border: 2px solid #0071e3;
+      box-shadow: 0 0 10px rgba(0,113,227,0.6);
+      transform: scale(1.1);
+    }
+    .color-name {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #444;
+      transition: 0.3s ease;
+    }
+    footer {
+      margin-top: 80px;
+      padding: 20px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    .fade { opacity:0; transform:scale(0.95); }
+    .show { opacity:1; transform:scale(1); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">iPhone 17 Pro</h1>
+    <p class="subtitle">Покоряет границы возможного.</p>
+  </header>
+
+  <div class="iphone-container">
+    <img id="iphoneImage" class="iphone-img show" src="silver.png" alt="iPhone 17 Pro" />
+  </div>
+
+  <div class="selectors">
+    <label for="model">Модель:</label>
+    <select id="model" onchange="updateModel()">
+      <option selected>iPhone 17 Pro</option>
+      <option>iPhone 17 Pro Max</option>
+    </select>
+
+    <div class="colors">
+      <div class="color-dot active" style="background:#d9d9d9" onclick="changeColor('silver', this)"></div>
+      <div class="color-dot" style="background:#ff7b00" onclick="changeColor('orange', this)"></div>
+      <div class="color-dot" style="background:#022140" onclick="changeColor('blue', this)"></div>
+    </div>
+
+    <div class="color-name" id="colorName">Серебристый</div>
+  </div>
+
+  <footer>© 2025 Apple Inc. Все права защищены.</footer>
+
+  <script>
+    const iphoneImage = document.getElementById("iphoneImage");
+    const colorName = document.getElementById("colorName");
+    const title = document.getElementById("title");
+    const body = document.body;
+
+    const colors = {
+      silver: { name: "Серебристый", img: "silver.png", bg: "#f0f0f5" },
+      orange: { name: "Оранжевый", img: "orange.png", bg: "#fff3e0" },
+      blue:   { name: "Синий", img: "blue.png", bg: "#e0f0ff" }
+    };
+
+    function changeColor(color, el) {
+      document.querySelectorAll(".color-dot").forEach(dot => dot.classList.remove("active"));
+      el.classList.add("active");
+
+      iphoneImage.classList.remove("show");
+      iphoneImage.classList.add("fade");
+
+      setTimeout(() => {
+        iphoneImage.src = colors[color].img;
+        colorName.textContent = colors[color].name;
+        iphoneImage.classList.remove("fade");
+        iphoneImage.classList.add("show");
+
+        const model = document.getElementById("model").value;
+        if (model.includes("Pro")) {
+          body.style.backgroundColor = colors[color].bg;
+        } else {
+          body.style.backgroundColor = "#fff";
+        }
+      }, 300);
+    }
+
+    function updateModel() {
+      const model = document.getElementById("model").value;
+      title.textContent = model;
+
+      const activeColor = document.querySelector(".color-dot.active");
+      const colorKeys = Object.keys(colors);
+      let currentColor = colorKeys.find(key => colors[key].name === colorName.textContent);
+      if (model.includes("Pro")) {
+        body.style.backgroundColor = colors[currentColor].bg;
+      } else {
+        body.style.backgroundColor = "#fff";
+      }
+    }
+  </script>
+</body>
+</html>
